@@ -1,5 +1,29 @@
 body {
   font-family: 'Noto Sans', sans-serif;
+  color: #1f2933;
+  background: #fff;
+}
+
+.site-container {
+  width: auto;
+}
+
+@media screen and (min-width: 1024px) {
+  .site-container {
+    max-width: 960px !important;
+  }
+}
+
+@media screen and (min-width: 1216px) {
+  .site-container {
+    max-width: 1152px !important;
+  }
+}
+
+@media screen and (min-width: 1408px) {
+  .site-container {
+    max-width: 1344px !important;
+  }
 }
 
 
@@ -21,6 +45,10 @@ body {
 .teaser .hero-body {
   padding-top: 0;
   padding-bottom: 3rem;
+}
+
+.publication-header {
+  padding-bottom: 1rem;
 }
 
 .teaser {
@@ -110,6 +138,10 @@ body {
 .publication-body img {
 }
 
+.content {
+  font-size: 18px;
+}
+
 .results-carousel {
   overflow: hidden;
 }
@@ -154,4 +186,199 @@ body {
 }
 #interpolation-image-wrapper img {
   border-radius: 5px;
+}
+
+.figure-shell {
+  margin: 0;
+}
+
+.teaser-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.teaser-item {
+  text-align: center;
+}
+
+.teaser-label {
+  margin-bottom: 0.45rem;
+  color: #1f2933;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+.teaser-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid #7b8794;
+  background: #fff;
+}
+
+.figure-placeholder {
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  border: 2px dashed #cbd2d9;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f8fafc, #eef2f7);
+  color: #7b8794;
+  font-family: 'Google Sans', sans-serif;
+  text-align: center;
+}
+
+.large-placeholder {
+  min-height: 420px;
+}
+
+.tall-placeholder {
+  min-height: 420px;
+}
+
+.figure-caption {
+  margin-top: 0.75rem;
+  color: #616e7c;
+}
+
+.method-figure-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.qual-figure-wrap {
+  overflow-x: auto;
+}
+
+.qual-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0;
+  min-width: 900px;
+  border-top: 1px solid #7b8794;
+  border-left: 1px solid #7b8794;
+}
+
+.qual-panel {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-right: 1px solid #7b8794;
+  border-bottom: 1px solid #7b8794;
+}
+
+.qual-label-row {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  min-width: 900px;
+  margin-top: 0.35rem;
+  text-align: center;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 1.05rem;
+}
+
+.insight-list {
+  margin-left: 1.25rem;
+}
+
+.results-table th,
+.results-table td {
+  vertical-align: middle;
+}
+
+.highlight-row {
+  background: #eef6ff !important;
+}
+
+.results-note {
+  color: #616e7c;
+}
+
+.qualitative-block {
+  margin-top: 2rem;
+}
+
+.generalization-block {
+  margin-top: 2.25rem;
+}
+
+.generalization-figure-wrap {
+  overflow-x: auto;
+}
+
+.generalization-grid {
+  display: grid;
+  grid-template-columns: 1.78fr repeat(4, 1fr);
+  gap: 0;
+  min-width: 980px;
+  border-top: 1px solid #7b8794;
+  border-left: 1px solid #7b8794;
+}
+
+.generalization-panel {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-right: 1px solid #7b8794;
+  border-bottom: 1px solid #7b8794;
+}
+
+.generalization-label-row {
+  display: grid;
+  grid-template-columns: 1.78fr repeat(4, 1fr);
+  min-width: 980px;
+  margin-top: 0.35rem;
+  text-align: center;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 0.95rem;
+}
+
+.ablation-block {
+  margin-top: 0.5rem;
+}
+
+.ablation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.ablation-item {
+  text-align: center;
+}
+
+.ablation-item .title {
+  margin-bottom: 0.75rem;
+}
+
+.ablation-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.bibtex-block {
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+}
+
+@media screen and (max-width: 1023px) {
+  .teaser-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ablation-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .teaser-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

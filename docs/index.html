@@ -62,9 +62,9 @@
 </nav>
 
 
-<section class="hero">
+<section class="hero publication-header">
   <div class="hero-body">
-    <div class="container is-max-desktop">
+    <div class="container site-container">
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">RadarSFD: Single-Frame Diffusion with Pretrained Priors for Radar Point Clouds</h1>
@@ -83,7 +83,6 @@
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- Paper Link. -->
               <span class="link-block">
                 <a href="https://arxiv.org/abs/2509.18068"
                    class="external-link button is-normal is-rounded is-dark">
@@ -104,7 +103,6 @@
                   </a>
               </span>
             </div>
-
           </div>
         </div>
       </div>
@@ -112,23 +110,46 @@
   </div>
 </section>
 
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <h2 class="subtitle has-text-centered">
-        RadarSFD reconstructs dense LiDAR-like point clouds from a single radar frame without motion or SAR, using conditional latent diffusion with pretrained depth priors.
-      </h2>
+<section class="section teaser-section" id="teaser">
+  <div class="container site-container">
+    <figure class="figure-shell">
+      <div class="teaser-grid">
+        <div class="teaser-item">
+          <div class="teaser-label">(a) RadarHD (41 frames)</div>
+          <img src="./images/Fig1/117_100_radarhd.png" alt="RadarHD 41-frame reconstruction result">
+        </div>
+        <div class="teaser-item">
+          <div class="teaser-label">(b) RadarHD (1 frame)</div>
+          <img src="./images/Fig1/117_100_radarhdss.png" alt="RadarHD single-frame reconstruction result">
+        </div>
+        <div class="teaser-item">
+          <div class="teaser-label">(c) Zhang et al.</div>
+          <img src="./images/Fig1/117_100_ral.png" alt="Zhang et al. reconstruction result">
+        </div>
+        <div class="teaser-item">
+          <div class="teaser-label">(d) RadarSFD (Ours)</div>
+          <img src="./images/Fig1/117_100_marigold.png" alt="RadarSFD reconstruction result">
+        </div>
+        <div class="teaser-item">
+          <div class="teaser-label">(e) LiDAR ground truth</div>
+          <img src="./images/Fig1/117_100_ground_truth.png" alt="LiDAR ground truth point cloud">
+        </div>
+      </div>
+    </figure>
+    <div class="content has-text-centered">
+      <p>
+        RadarSFD reconstructs dense LiDAR-like point clouds from a single radar frame, recovering sharper walls and gaps than prior single-frame baselines without requiring motion or synthetic aperture radar.
+      </p>
     </div>
   </div>
 </section>
 
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
+<section class="section" id="abstract">
+  <div class="container site-container">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-3 has-text-centered">Abstract</h3>
         <div class="content has-text-justified">
           <p>
             Millimeter-wave radar provides perception robust to fog, smoke, dust, and low light, making it attractive for size, weight, and power constrained robotic platforms. Current radar imaging methods, however, rely on synthetic aperture or multi-frame aggregation to improve resolution, which is impractical for small aerial, inspection, or wearable systems.
@@ -142,10 +163,253 @@
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
   </div>
 </section>
 
+<section class="section section-accent" id="method">
+  <div class="container site-container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-3">System Overview</h3>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <figure class="figure-shell">
+          <img class="method-figure-image" src="./images/Fig3/fig3.png" alt="RadarSFD diffusion architecture showing pixel space, latent space, and radar conditioning.">
+        </figure>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="content has-text-justified">
+          <p>
+            RadarSFD takes a single radar Range-Azimuth BEV and reconstructs a dense LiDAR-like point cloud through a conditional latent diffusion pipeline. Radar and LiDAR BEV images are first encoded into latent space. The radar latent <em>c</em> is concatenated with the noisy LiDAR latent <em>z<sub>t</sub></em> and passed into a pretrained U-Net denoiser. After iterative denoising, the decoder reconstructs a LiDAR-like point cloud with sharp geometry from a single radar frame.
+          </p>
+          <ul class="insight-list">
+            <li>Lightly thresholded BEV preserves useful structure while keeping the input image-like.</li>
+            <li>Pretrained Marigold weights inject geometric priors into the diffusion backbone.</li>
+            <li>Channel-wise latent concatenation anchors the generation to the observed radar input.</li>
+            <li>Dual-space supervision combines latent denoising with decoded image reconstruction losses.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="results">
+  <div class="container site-container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-3">Results</h3>
+      </div>
+    </div>
+
+    <div class="content">
+      <h3 class="title is-4">Evaluation on the RadarHD Dataset</h3>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-fullwidth is-striped results-table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th># Frames</th>
+            <th>Mean CD ↓</th>
+            <th>Mean MHD ↓</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>CFAR</td>
+            <td>1</td>
+            <td>0.84</td>
+            <td>0.91</td>
+          </tr>
+          <tr>
+            <td>RadarHD</td>
+            <td>41</td>
+            <td>0.44</td>
+            <td>0.34</td>
+          </tr>
+          <tr>
+            <td>RadarHD single-frame</td>
+            <td>1</td>
+            <td>0.56</td>
+            <td>0.45</td>
+          </tr>
+          <tr>
+            <td>Luan et al.</td>
+            <td>5</td>
+            <td>0.59</td>
+            <td>0.50</td>
+          </tr>
+          <tr>
+            <td>Zhang et al.</td>
+            <td>1</td>
+            <td>0.38</td>
+            <td>0.29</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><strong>RadarSFD (Ours)</strong></td>
+            <td><strong>1</strong></td>
+            <td><strong>0.35</strong></td>
+            <td><strong>0.28</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="content">
+      <p>
+        RadarSFD achieves the best single-frame performance on the RadarHD dataset, improving over Luan et al. (ICRA 2024) and Zhang et al. (RA-L 2024).
+      </p>
+    </div>
+
+    <div class="content qualitative-block">
+      <figure class="figure-shell">
+        <div class="qual-figure-wrap">
+          <div class="qual-grid">
+            <img class="qual-panel" src="./images/Fig5/124_500_cfar.png" alt="Scene 1 CA-CFAR result">
+            <img class="qual-panel" src="./images/Fig5/124_500_radarhd.png" alt="Scene 1 RadarHD 41-frame result">
+            <img class="qual-panel" src="./images/Fig5/124_500_radarhdss.png" alt="Scene 1 RadarHD single-frame result">
+            <img class="qual-panel" src="./images/Fig5/124_500_ral.png" alt="Scene 1 Zhang et al. result">
+            <img class="qual-panel" src="./images/Fig5/124_500_marigold.png" alt="Scene 1 RadarSFD result">
+            <img class="qual-panel" src="./images/Fig5/124_500_ground_truth.png" alt="Scene 1 LiDAR ground truth">
+
+            <img class="qual-panel" src="./images/Fig5/132_800_cfar.png" alt="Scene 2 CA-CFAR result">
+            <img class="qual-panel" src="./images/Fig5/132_800_radarhd.png" alt="Scene 2 RadarHD 41-frame result">
+            <img class="qual-panel" src="./images/Fig5/132_800_radarhdss.png" alt="Scene 2 RadarHD single-frame result">
+            <img class="qual-panel" src="./images/Fig5/132_800_ral.png" alt="Scene 2 Zhang et al. result">
+            <img class="qual-panel" src="./images/Fig5/132_800_marigold.png" alt="Scene 2 RadarSFD result">
+            <img class="qual-panel" src="./images/Fig5/132_800_ground_truth.png" alt="Scene 2 LiDAR ground truth">
+
+            <img class="qual-panel" src="./images/Fig5/139_800_cfar.png" alt="Scene 3 CA-CFAR result">
+            <img class="qual-panel" src="./images/Fig5/139_800_radarhd.png" alt="Scene 3 RadarHD 41-frame result">
+            <img class="qual-panel" src="./images/Fig5/139_800_radarhdss.png" alt="Scene 3 RadarHD single-frame result">
+            <img class="qual-panel" src="./images/Fig5/139_800_ral.png" alt="Scene 3 Zhang et al. result">
+            <img class="qual-panel" src="./images/Fig5/139_800_marigold.png" alt="Scene 3 RadarSFD result">
+            <img class="qual-panel" src="./images/Fig5/139_800_ground_truth.png" alt="Scene 3 LiDAR ground truth">
+
+            <img class="qual-panel" src="./images/Fig5/250_50_cfar.png" alt="Scene 4 CA-CFAR result">
+            <img class="qual-panel" src="./images/Fig5/250_50_radarhd.png" alt="Scene 4 RadarHD 41-frame result">
+            <img class="qual-panel" src="./images/Fig5/250_50_radarhdss.png" alt="Scene 4 RadarHD single-frame result">
+            <img class="qual-panel" src="./images/Fig5/250_50_ral.png" alt="Scene 4 Zhang et al. result">
+            <img class="qual-panel" src="./images/Fig5/250_50_marigold.png" alt="Scene 4 RadarSFD result">
+            <img class="qual-panel" src="./images/Fig5/250_50_ground_truth.png" alt="Scene 4 LiDAR ground truth">
+          </div>
+          <div class="qual-label-row">
+            <div>(a)</div>
+            <div>(b)</div>
+            <div>(c)</div>
+            <div>(d)</div>
+            <div>(e)</div>
+            <div>(f)</div>
+          </div>
+        </div>
+      </figure>
+      <div class="content">
+        <p>
+          Qualitative comparison of point cloud reconstructions on four representative scenes with varying complexity. All results are shown in Cartesian coordinates for direct comparison.
+        </p>
+        <ul>
+          <li>(a) CA-CFAR is sparse and noisy.</li>
+          <li>(b) RadarHD (41 frames) captures geometry but with blurry edges and clutter.</li>
+          <li>(c) RadarHD single-frame misses structures.</li>
+          <li>(d) Zhang et al. (RA-L 2024) yields cleaner but lower-resolution outputs.</li>
+          <li>(e) RadarSFD achieves sharp, complete reconstructions that closely match (f) LiDAR ground truth.</li>
+        </ul>
+      </div>
+
+      <h3 class="title is-4">Generalization to Unseen Scenes</h3>
+      <figure class="figure-shell generalization-block">
+        <div class="generalization-figure-wrap">
+          <div class="generalization-grid">
+            <img class="generalization-panel" src="./images/Fig0/scene0_rgb.png" alt="Unseen scene 1 RGB image">
+            <img class="generalization-panel" src="./images/Fig0/scene0_floor.png" alt="Unseen scene 1 3D layout">
+            <img class="generalization-panel" src="./images/Fig0/field_0_radarhdss.png" alt="Unseen scene 1 RadarHD result">
+            <img class="generalization-panel" src="./images/Fig0/field_0_ral.png" alt="Unseen scene 1 Zhang et al. result">
+            <img class="generalization-panel" src="./images/Fig0/field_0_marigold.png" alt="Unseen scene 1 RadarSFD result">
+
+            <img class="generalization-panel" src="./images/Fig0/scene1_rgb.png" alt="Unseen scene 2 RGB image">
+            <img class="generalization-panel" src="./images/Fig0/scene1_floor.png" alt="Unseen scene 2 3D layout">
+            <img class="generalization-panel" src="./images/Fig0/field_1_radarhdss.png" alt="Unseen scene 2 RadarHD result">
+            <img class="generalization-panel" src="./images/Fig0/field_1_ral.png" alt="Unseen scene 2 Zhang et al. result">
+            <img class="generalization-panel" src="./images/Fig0/field_1_marigold.png" alt="Unseen scene 2 RadarSFD result">
+          </div>
+          <div class="generalization-label-row">
+            <div>(a) RGB image of unseen building</div>
+            <div>(b) 3D layout</div>
+            <div>(c) RadarHD</div>
+            <div>(d) RAL'24</div>
+            <div>(e) RadarSFD (ours)</div>
+          </div>
+        </div>
+      </figure>
+      <div class="content">
+        <p>
+          Real-world generalization results on completely unseen scenes from our campus building. All models are trained on the same RadarHD dataset: (a) RGB image of the unseen environment, (b) 3D floor-plan layout, (c) RadarHD single-frame baseline, (d) Zhang et al. (RA-L 2024), and (e) RadarSFD single-frame latent diffusion.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-accent" id="ablation">
+  <div class="container site-container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-3">Ablation Insights</h3>
+      </div>
+    </div>
+    <figure class="figure-shell ablation-block">
+      <div class="ablation-grid">
+        <div class="ablation-item">
+          <h4 class="title is-5">Input Representation</h4>
+          <img class="ablation-image" src="./images/Fig6/input_representation.png" alt="Ablation on radar input representation">
+        </div>
+        <div class="ablation-item">
+          <h4 class="title is-5">Pretrained Priors</h4>
+          <img class="ablation-image" src="./images/Fig6/pretrain_priors.png" alt="Ablation on pretrained priors">
+        </div>
+        <div class="ablation-item">
+          <h4 class="title is-5">Training Loss</h4>
+          <img class="ablation-image" src="./images/Fig6/training_loss.png" alt="Ablation on training losses">
+        </div>
+      </div>
+    </figure>
+    <div class="content">
+      <p>
+        Ablation box plots using Chamfer Distance (CD). From left to right, the plots evaluate input representation, pretrained priors, and training losses.
+      </p>
+      <ul>
+        <li>Thresholded BEV inputs outperform raw I/Q signals.</li>
+        <li>Depth-pretrained priors such as Marigold and SDv2 perform much better than random initialization.</li>
+        <li>Adding pixel-space L1 drives most of the gain, while SSIM and LPIPS provide only marginal benefit.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="bibtex">
+  <div class="container site-container">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3 has-text-centered">BibTeX</h3>
+        <pre class="bibtex-block"><code>@inproceedings{zhao2026radarsfd,
+  title     = {RadarSFD: Single-Frame Diffusion with Pretrained Priors for Radar Point Clouds},
+  author    = {Zhao, Bin and Garg, Nakul},
+  booktitle = {IEEE International Conference on Robotics and Automation (ICRA)},
+  year      = {2026}
+}</code></pre>
+        <!-- <p class="results-note">
+          Update the citation fields once the final publication metadata is ready.
+        </p> -->
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer class="footer">
   <div class="container">
