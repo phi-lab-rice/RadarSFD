@@ -10,8 +10,6 @@ The released RadarSFD weights are available on Hugging Face:
 
 https://huggingface.co/Bin-0815/RadarSFD
 
-The repository model card used for that release is also included locally at [`weights/HUGGINGFACE_MODEL_CARD.md`](/Users/binzhao/Desktop/RadarSFD/weights/HUGGINGFACE_MODEL_CARD.md).
-
 ## Dataset
 
 The RadarHD dataset used in this project is available at:
