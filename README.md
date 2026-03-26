@@ -14,7 +14,7 @@ https://huggingface.co/Bin-0815/RadarSFD
 
 The RadarHD dataset used in this project is available at:
 
-https://github.com/akarsh-prabhakara/RadarHD
+[https://github.com/akarsh-prabhakara/RadarHD](https://github.com/akarsh-prabhakara/RadarHD/tree/main/dataset_5)
 
 Before training or evaluation, update `data_root` in [`Code/config.yaml`](/Users/binzhao/Desktop/RadarSFD/Code/config.yaml) so it points to your local RadarHD dataset path.
 
