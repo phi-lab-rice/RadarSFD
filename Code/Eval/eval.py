@@ -106,15 +106,27 @@ class DiffusionModelEvaluator:
         ).unet
         self.unet.eval()
 
-    def _load_checkpoint(self) -> None:
+    def _read_checkpoint_state_dict(self) -> Dict[str, torch.Tensor]:
+        checkpoint_suffix = Path(self.checkpoint_path).suffix.lower()
+        if checkpoint_suffix == ".safetensors":
+            try:
+                from safetensors.torch import load_file
+            except ImportError as exc:
+                raise ImportError(
+                    "Loading .safetensors checkpoints requires `safetensors`. "
+                    "Install it with `python -m pip install safetensors`."
+                ) from exc
+            return load_file(self.checkpoint_path, device="cpu")
+
         checkpoint = torch.load(self.checkpoint_path, map_location="cpu")
         if isinstance(checkpoint, dict) and "unet_state_dict" in checkpoint:
-            state_dict = checkpoint["unet_state_dict"]
-        elif isinstance(checkpoint, dict):
-            state_dict = checkpoint
-        else:
-            raise TypeError("Checkpoint must be a state dict or a dict containing `unet_state_dict`.")
+            return checkpoint["unet_state_dict"]
+        if isinstance(checkpoint, dict):
+            return checkpoint
+        raise TypeError("Checkpoint must be a state dict or a dict containing `unet_state_dict`.")
 
+    def _load_checkpoint(self) -> None:
+        state_dict = self._read_checkpoint_state_dict()
         missing_keys, unexpected_keys = self.unet.load_state_dict(state_dict, strict=False)
         print(f"Loaded checkpoint from {self.checkpoint_path}")
         print(

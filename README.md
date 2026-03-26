@@ -4,6 +4,14 @@ This is the repository for ICRA 2026 paper RadarSFD: Single-Frame Diffusion with
 
 RadarSFD reconstructs dense LiDAR-like point clouds from a single radar frame using conditional latent diffusion with pretrained priors.
 
+## Pretrained Weights
+
+The released RadarSFD weights are available on Hugging Face:
+
+https://huggingface.co/Bin-0815/RadarSFD
+
+The repository model card used for that release is also included locally at [`weights/HUGGINGFACE_MODEL_CARD.md`](/Users/binzhao/Desktop/RadarSFD/weights/HUGGINGFACE_MODEL_CARD.md).
+
 ## Dataset
 
 The RadarHD dataset used in this project is available at:
@@ -48,6 +56,12 @@ Run evaluation from the repository root:
 
 ```bash
 python3 Code/Eval/eval.py --config Code/config.yaml --checkpoint results/checkpoints/best_checkpoint.pt
+```
+
+To evaluate the released pretrained model, download the checkpoint from the Hugging Face page above and pass its local path to `--checkpoint`, for example:
+
+```bash
+python3 Code/Eval/eval.py --config Code/config.yaml --checkpoint /path/to/RadarSFD.safetensors
 ```
 
 This will:
