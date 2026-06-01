@@ -192,6 +192,17 @@ body {
   margin: 0;
 }
 
+.graphical-abstract-section {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.graphical-abstract-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .teaser-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
